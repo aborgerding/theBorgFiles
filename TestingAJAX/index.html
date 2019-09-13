@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>AJAX practice</title>
+
+
+  <script>
+    var myRequest = new XMLHttpRequest();
+    myRequest.open('GET', 'surprise.html');
+    myRequest.onreadystatechange = function () {
+    if (myRequest.readyState === 4) {
+     	document.getElementById('ajax-content').innerHTML = myRequest.responseText;
+    }
+    };
+
+    function sendTheAJAX() {
+    	myRequest.send();
+   	document.getElementById('reveal').style.display = 'none';
+    }
+
+    function showDB(){
+    	var myPHPRequest = new XMLHttpRequest();
+    	myPHPRequest.onreadystatechange = function () {
+   	if (myPHPRequest.readyState === 4 && myPHPRequest.status == 200) 
+	{
+      	    document.getElementById('dbInfo').innerHTML = myPHPRequest.responseText;
+	}};
+    myPHPRequest.open('GET', 'testProject.php');
+    myPHPRequest.send();
+    }
+  </script>
+
+
+
+</head>
+<body>
+<p>
+    <div class="title">
+      <h1>Today's your special day!</h1>
+    </div>
+    <button id="reveal" onclick="sendTheAJAX()" class="button">Why's that?</button>
+    <div id="ajax-content"></div>
+    <div id="dbInfo"><script>showDB()</script></div>
+
+    </p>
+</body>
+</html>
